@@ -11,8 +11,8 @@ This code has been adapted from https://github.com/tayfunulu/WiFiManager
  - Upon execution of "**wifi_sta_ap.py**" the following process is seen and should be followed.
    - The HTML webpage as specified in "**wifimgr.py**" is presented in **AP mode** and it can be accessed via a new SSID called "**WifiManager**" with a password of "**123456789**".
    - When you have loged into the SSID called "**WifiManager**", access URL "**http://192.168.4.1**" 
-   - In URL "**http://192.168.4.1**" , select the SSID, populate the password field and press SUBMIT.
-   - The program takes the login info you have entered, and attempts to set up another server in STA mode to log into the selected SSID.
+   - In URL "**http://192.168.4.1**" , you will see a list of SSIDs that have been sniffed by the PICO W. Press the radio button next to the SSID you want to access, populate the password field with the correct password and press SUBMIT.
+   - The program takes the login info you have entered, _and attempts to log into the selected SSID to set up another server in **STA mode**_ 
    - If logging into the selected SSID is successful.
      - File "**wifi.dat**" is created and the login info is stored in JSON format.
      - The HTML webpage as specified in "**wifi_ap_sta.py**" is presented in **STA mode** and it can be accessed as a new IP address in the broadband network of the SSID. 
