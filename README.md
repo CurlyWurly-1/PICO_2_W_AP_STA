@@ -1,6 +1,6 @@
 # PICO_2_W_AP_STA
 
-The purpose of this program is to show how initial broadband SSID and password can be entered without hardcoding via the use of functions in library "**wifimgr.py**" 
+The purpose of this program is to show how initial broadband SSID and password can be entered without hardcoding, via the use of functions in library "**wifimgr.py**" 
 
 Original code is from https://github.com/cpopp/MicroPythonSamples
 
