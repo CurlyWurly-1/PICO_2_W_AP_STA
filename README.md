@@ -9,13 +9,14 @@ This code has been adapted from https://github.com/tayfunulu/WiFiManager
  - Program "**wifi_sta_ap.py**" is to be executed only.
  - Program "**wifimgr.py**" is only referenced as a library by "**wifi_sta_ap.py**". 
  - Upon execution of "**wifi_sta_ap.py**" the following process is seen and should be followed.
-   - The HTML webpage as specified in "**wifimgr.py**" is presented in **AP mode** and it can be accessed via a new SSID called "**WifiManager**" with a password of "**123456789**".
-   - When you have loged into the SSID called "**WifiManager**", access URL "**http://192.168.4.1**" 
+   - A HTML server in "**AP mode**" is setup and it presents the "login" HTML webpage as specified in "**wifimgr.py**" via a new SSID called "**WifiManager**".
+   - Use your mobile phone to access SSID "**WifiManager**" with password "**123456789**".
+   - Once your mobile phone is logged into SSID "**WifiManager**", use a browser on your phone to access the "login" HTML webpage via URL "**http://192.168.4.1**" 
    - In URL "**http://192.168.4.1**" , you will see a list of SSIDs that have been sniffed by the PICO W. Press the radio button next to the SSID you want to access, populate the password field with the correct password and press SUBMIT.
-   - The program takes the login info you have entered, _and attempts to log into the selected SSID to set up another server in **STA mode**_ 
+   - The program takes the login info you have entered, _and attempts to log into the selected SSID and set up another server in **STA mode**_ 
    - If logging into the selected SSID is successful.
      - File "**wifi.dat**" is created and the login info is stored in JSON format.
-     - The HTML webpage as specified in "**wifi_ap_sta.py**" is presented in **STA mode** and it can be accessed as a new IP address in the broadband network of the SSID. 
-     - AP mode is exited.
+     - The HTML webpage as specified in "**wifi_ap_sta.py**" is presented in **STA mode** and it can be accessed as a new IP address in the broadband network of the SSID (e.g. _"http://192.168.x.yyy"_ ).
+     - AP mode is exited and this means that SSID "**WifiManager**" will disappear. Redirect your mobile phone to use the broadband network of the SSID and use a browser to access the new IP address (e.g. _"http://192.168.x.yyy"_ ). This IP address will display the HTML webpage as specified in "**wifi_ap_sta.py**"
 
-N.B. If the above sequence is completed successfully, the next time that "**wifi_sta_ap.py**" is executed, the login info in file "**wifi.dat**" is retrieved and a login is attempted. If the login is successful, the program bypasses AP mode and open only in STA mode _i.e. If there is correct log in info in the "**wifi.dat**" file, the webpage in "**wifi_sta_ap.py**" is shown straight away_. 
+N.B. If the above sequence is completed successfully, the next time that "**wifi_sta_ap.py**" is executed, the login info in file "**wifi.dat**" will be looked for and the login info retrieved. A login will be attempted and if successful, the program will bypass the "setup" HTML webpage in **AP mode** _i.e. If there is correct login info in the "**wifi.dat**" file, the webpage in "**wifi_sta_ap.py**" is shown straight away_. 
