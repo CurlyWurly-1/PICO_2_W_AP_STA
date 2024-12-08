@@ -22,8 +22,6 @@ This code has been adapted from https://github.com/tayfunulu/WiFiManager
        - Disconnect the PICO W USB connection.
        - Connect the PICO W USB connection
        - Press the "Stop" button in Thonny (to reconnect Thonny to the PICO W)
-       - Execute "**wifi_sta_ap.py**    
+       - Execute program "**wifi_sta_ap.py**" again    
 
-N.B. If the above sequence is completed successfully, when you hard reboot the PICO W and execute program "**wifi_sta_ap.py**" again, the program will thjis time find file "**wifi.dat**" with its login info. If the login is successful, the program will bypass the "setup" HTML webpage in **AP mode** and the HTML webpage in "**wifi_sta_ap.py**" is shown straight away. 
-
-...and viola - There is no need to enter the SSID and password again!
+N.B. If the above sequence is completed successfully, with the PICO W hard rebooted amd program "**wifi_sta_ap.py**" has been executed again, you will notice that because the program now finds file "**wifi.dat**" with its login info, the program will bypass the "setup" HTML webpage in **AP mode** and the HTML webpage in "**wifi_sta_ap.py**" is shown straight away. IF however, the file contains the wrong SSID and password combination (perhaps the SSID password has changed?) then after two unsuccessful attempts to login in **STA mode**. the program will go back to showing the original "login" HTML webpage in **AP mode**.  
