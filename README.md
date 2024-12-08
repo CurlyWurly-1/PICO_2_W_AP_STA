@@ -18,5 +18,12 @@ This code has been adapted from https://github.com/tayfunulu/WiFiManager
      - File "**wifi.dat**" is created and the login info is stored in JSON format.
      - The HTML webpage as specified in "**wifi_ap_sta.py**" is presented in **STA mode** and it can be accessed as a new IP address in the broadband network of the SSID (e.g. _"http://192.168.x.yyy"_ ).
      - AP mode is exited and this means that SSID "**WifiManager**" will disappear. Redirect your mobile phone to use the broadband network of the SSID and use a browser to access the new IP address (e.g. _"http://192.168.x.yyy"_ ). This IP address will display the HTML webpage as specified in "**wifi_ap_sta.py**"
+     - Hard reboot the PICO W as follows
+       - Disconnect the PICO W USB connection.
+       - Connect the PICO W USB connection
+       - Press the "Stop" button in Thonny (to reconnect Thonny to the PICO W)
+       - Execute "**wifi_sta_ap.py**    
 
-N.B. If the above sequence is completed successfully, the next time that "**wifi_sta_ap.py**" is executed, the login info in file "**wifi.dat**" will be looked for and the login info retrieved. A login will be attempted and if successful, the program will bypass the "setup" HTML webpage in **AP mode** _i.e. If there is correct login info in the "**wifi.dat**" file, the webpage in "**wifi_sta_ap.py**" is shown straight away_. 
+N.B. If the above sequence is completed successfully, when you hard reboot the PICO W and execute program "**wifi_sta_ap.py**" again, the program will thjis time find file "**wifi.dat**" with its login info. If the login is successful, the program will bypass the "setup" HTML webpage in **AP mode** and the HTML webpage in "**wifi_sta_ap.py**" is shown straight away. 
+
+...and viola - There is no need to enter the SSID and password again!
