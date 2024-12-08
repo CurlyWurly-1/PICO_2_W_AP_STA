@@ -6,18 +6,10 @@ try:
   import usocket as socket
 except:
   import socket
-#machine.reset()
-led = machine.Pin("LED",machine.Pin.OUT)
-wlan = wifimgr.get_connection()        #initializing wlan
 
-if wlan is None:
-    print("Could not initialize the network connection.")
-#    while True:
-#        pass  
-else:
-    print(" Raspberry Pi Pico W OK")
-    led_state = "OFF"
+###########################################
 def web_page():
+###########################################
     html = """<html>
 
 <head>
@@ -68,16 +60,37 @@ def web_page():
     return html
 
 
+###########################################
+# S T A R T   O F    P R O G R A M
+###########################################
+led = machine.Pin("LED",machine.Pin.OUT)
+wlan = wifimgr.get_connection()        #initializing wlan
+
+if wlan is None:
+    GV_RUN = False
+    print("Could not initialize the network connection.")
+else:
+    GV_RUN = True
+    print(" Raspberry Pi Pico W OK")
+    led_state = "OFF"
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind(('', 80))
 s.listen(5)
 
-while True:
+while GV_RUN:
     try:
         if gc.mem_free() < 102000:
             gc.collect()
-        conn, addr = s.accept()
+
+        try:
+            conn, addr = s.accept()
+        except KeyboardInterrupt:
+            GV_RUN = False
+            print("** Ctrl+C pressed")
+            break
+
         conn.settimeout(3.0)
         print('Received HTTP GET connection request from %s' % str(addr))
         request = conn.recv(1024)
@@ -103,3 +116,4 @@ while True:
     except OSError as e:
         conn.close()
         print('Connection closed')
+
