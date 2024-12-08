@@ -3,19 +3,18 @@ import socket
 import ure
 import time
 
-ap_ssid = "WifiManager"
-ap_password = "123456789"
-ap_authmode = 3  # WPA2
-
+ap_ssid          = "WifiManager"
+ap_password      = "123456789"
+ap_authmode      = 3  # WPA2
 NETWORK_PROFILES = 'wifi.dat'
-
-wlan_ap = network.WLAN(network.AP_IF)
-wlan_sta = network.WLAN(network.STA_IF)
-
-server_socket = None
+wlan_ap          = network.WLAN(network.AP_IF)
+wlan_sta         = network.WLAN(network.STA_IF)
+server_socket    = None
 
 
+###########################################
 def get_connection():
+###########################################
     """return a working WLAN(STA_IF) instance or None"""
 
     # First check if there already is any connection:
@@ -66,7 +65,9 @@ def get_connection():
     return wlan_sta if connected else None
 
 
+###########################################
 def read_profiles():
+###########################################
     with open(NETWORK_PROFILES) as f:
         lines = f.readlines()
     profiles = {}
@@ -76,7 +77,9 @@ def read_profiles():
     return profiles
 
 
+###########################################
 def write_profiles(profiles):
+###########################################
     lines = []
     for ssid, password in profiles.items():
         lines.append("%s;%s\n" % (ssid, password))
@@ -84,7 +87,9 @@ def write_profiles(profiles):
         f.write(''.join(lines))
 
 
+###########################################
 def do_connect(ssid, password):
+###########################################
     wlan_sta.active(True)
     if wlan_sta.isconnected():
         return None
@@ -103,7 +108,9 @@ def do_connect(ssid, password):
     return connected
 
 
+###########################################
 def send_header(client, status_code=200, content_length=None ):
+###########################################
     client.sendall("HTTP/1.0 {} OK\r\n".format(status_code))
     client.sendall("Content-Type: text/html\r\n")
     if content_length is not None:
@@ -111,15 +118,18 @@ def send_header(client, status_code=200, content_length=None ):
     client.sendall("\r\n")
 
 
+###########################################
 def send_response(client, payload, status_code=200):
+###########################################
     content_length = len(payload)
     send_header(client, status_code, content_length)
     if content_length > 0:
         client.sendall(payload)
     client.close()
 
-
+###########################################
 def handle_root(client):
+###########################################
     wlan_sta.active(True)
     ssids = sorted(ssid.decode('utf-8') for ssid, *_ in wlan_sta.scan())
     send_header(client)
@@ -184,7 +194,9 @@ def handle_root(client):
     client.close()
 
 
+###########################################
 def handle_configure(client, request):
+###########################################
     match = ure.search("ssid=([^&]*)&password=(.*)", request)
 
     if match is None:
@@ -247,11 +259,15 @@ def handle_configure(client, request):
         return False
 
 
+###########################################
 def handle_not_found(client, url):
+###########################################
     send_response(client, "Path not found: {}".format(url), status_code=404)
 
 
+###########################################
 def stop():
+###########################################
     global server_socket
 
     if server_socket:
@@ -259,7 +275,9 @@ def stop():
         server_socket = None
 
 
+###########################################
 def start(port=80):
+###########################################
     global server_socket
 
     addr = socket.getaddrinfo('0.0.0.0', port)[0][-1]
@@ -320,3 +338,4 @@ def start(port=80):
         
         finally:
             client.close()
+
